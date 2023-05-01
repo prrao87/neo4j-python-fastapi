@@ -1,0 +1,5 @@
+neo4j>=5.8.0
+pydantic[dotenv]>=1.10.7, <2.0.0
+srsly>=2.4.6
+uvloop>=0.17.0
+codetiming>=1.4.0
