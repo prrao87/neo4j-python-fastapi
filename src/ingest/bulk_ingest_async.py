@@ -130,6 +130,9 @@ async def main(data: list[JsonBlob]) -> None:
             print("Ingesting data...")
             with Timer(name="ingest"):
                 for chunk in chunked_data:
+                    # Awaiting each chunk in a loop isn't ideal, but it's easiest this way when working with graphs!
+                    # Merging edges on top of nodes concurrently can lead to race conditions. Neo4j doesn't allow this,
+                    # and prevents the user from merging relationships on nodes that might not exist yet, for good reason.
                     ids = [item["id"] for item in chunk]
                     try:
                         await session.execute_write(build_query, chunk)
