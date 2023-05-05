@@ -10,6 +10,8 @@ The aim of this repo is to showcase how to build and maintain a data engineering
 2. Building a RESTful API on top of the Neo4j graph via [FastAPI](https://fastapi.tiangolo.com/)
 3. Building a GraphQL API on top of the Neo4j graph via FastAPI and [Strawberry](https://strawberry.rocks/)
 
+There are a lot of clever ways one can write an API on top of Neo4j using Python, but the main focus of this repo is to keep code readable, the logic simple and easy enough to extend for future use cases as they arise.
+
 A series of blog posts will also be published, going through the concepts involved. Stay tuned!
 
 
