@@ -1,4 +1,4 @@
-# Neo4j: Python and FastAPI
+# Neo4j: Python and FastAPI starter code
 
 This repo provides code to build a Neo4j graph via its [officially maintained Python client](https://github.com/neo4j/neo4j-python-driver), using either the sync or async database drivers. The async driver offers support for using Python's `asyncio` coroutine-based asynchronous, concurrent workflows, which can be beneficial in certain scenarios. Both sync and async code is provided in `src/ingest` as a starter template to bulk-ingest large amounts of data into Neo4j in batches, so as to be as efficient as possible.
 
@@ -10,7 +10,10 @@ The aim of this repo is to showcase how to build and maintain a data engineering
 2. Building a RESTful API on top of the Neo4j graph via [FastAPI](https://fastapi.tiangolo.com/)
 3. Building a GraphQL API on top of the Neo4j graph via FastAPI and [Strawberry](https://strawberry.rocks/)
 
+There are a lot of clever ways one can write an API on top of Neo4j using Python, but the main focus of this repo is to keep code readable, the logic simple and easy enough to extend for future use cases as they arise.
+
 A series of blog posts will also be published, going through the concepts involved. Stay tuned!
+
 
 ## Requirements
 
@@ -50,6 +53,6 @@ Tear down the database process and containers at any time using the following co
 docker compose down
 ```
 
-## Note on data used
+## Dataset
 
 The [wine reviews dataset](./data/) provided in this repo is a newline-delimited JSON-formatted version of the version obtained from Kaggle datasets.

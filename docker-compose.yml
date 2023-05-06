@@ -19,9 +19,32 @@ services:
       - data:/data
       - plugins:/plugins
       - import:/import
+    networks:
+      - wine
+
+  fastapi:
+    image: neo4j_wine_fastapi:${TAG}
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - ${API_PORT}:8000
+    depends_on:
+      - neo4j
+    volumes:
+      - ./:/wine
+    networks:
+      - wine
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+
 
 volumes:
   logs:
   data:
   plugins:
   import:
+
+networks:
+  wine:
+    driver: bridge
