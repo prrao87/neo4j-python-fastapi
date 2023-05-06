@@ -7,7 +7,7 @@ class FullTextSearch(BaseModel):
     title: str
     description: str | None
     points: int
-    price: float | str
+    price: float
     variety: str | None
     winery: str | None
 
