@@ -1,42 +1,46 @@
 import os
 import sys
-from collections.abc import AsyncGenerator
-from contextlib import asynccontextmanager
-from functools import lru_cache
-from pathlib import Path
 
-from dotenv import load_dotenv
-from fastapi import FastAPI
+from src.api.main import app
 from fastapi.testclient import TestClient
-from neo4j import AsyncGraphDatabase
 
-sys.path.insert(1, os.path.realpath(Path(__file__).resolve().parents[2]))
-from config.settings import Settings
-from api.routers import rest
+# from collections.abc import AsyncGenerator
+# from contextlib import asynccontextmanager
+# from functools import lru_cache
+# from pathlib import Path
 
+# from dotenv import load_dotenv
+# from fastapi import FastAPI
+# from fastapi.testclient import TestClient
+# from neo4j import AsyncGraphDatabase
 
-@lru_cache
-def get_settings():
-    load_dotenv()
-    return Settings()
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    """Async context manager for MongoDB connection."""
-    settings = get_settings()
-    URI = f"bolt://{settings.neo4j_url}:7687"
-    AUTH = (settings.neo4j_user, settings.neo4j_password)
-    async with AsyncGraphDatabase.driver(URI, auth=AUTH) as driver:
-        async with driver.session(database="neo4j") as session:
-            app.session = session
-            print("Successfully connected to wine reviews Neo4j DB")
-            yield
-            print("Successfully closed wine reviews Neo4j connection")
+# sys.path.insert(1, os.path.realpath(Path(__file__).resolve().parents[2]))
+# from config.settings import Settings
+# from api.routers import rest
 
 
-app = FastAPI(lifespan=lifespan)
-app.include_router(rest.router, prefix="/v1/rest", tags=["rest"])
+# @lru_cache
+# def get_settings():
+#     load_dotenv()
+#     return Settings()
+
+
+# @asynccontextmanager
+# async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+#     """Async context manager for MongoDB connection."""
+#     settings = get_settings()
+#     URI = f"bolt://{settings.neo4j_url}:7687"
+#     AUTH = (settings.neo4j_user, settings.neo4j_password)
+#     async with AsyncGraphDatabase.driver(URI, auth=AUTH) as driver:
+#         async with driver.session(database="neo4j") as session:
+#             app.session = session
+#             print("Successfully connected to wine reviews Neo4j DB")
+#             yield
+#             print("Successfully closed wine reviews Neo4j connection")
+
+
+# app = FastAPI(lifespan=lifespan)
+# app.include_router(rest.router, prefix="/v1/rest", tags=["rest"])
 
 client = TestClient(app)
 
