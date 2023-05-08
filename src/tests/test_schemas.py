@@ -1,5 +1,5 @@
 import pytest
-from schemas.wine import Wine
+from src.schemas.wine import Wine
 
 
 @pytest.fixture(scope="session")

@@ -31,6 +31,7 @@ source neoj_venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
+
 ### Install and run Docker
 
 * [Download Docker](https://docs.docker.com/get-docker/) and run the Docker daemon
@@ -56,3 +57,37 @@ docker compose down
 ## Dataset
 
 The [wine reviews dataset](./data/) provided in this repo is a newline-delimited JSON-formatted version of the version obtained from Kaggle datasets.
+
+
+## Run tests
+
+Once the data is intested into Neo4j, the APIs and schemas can be tested via `pytest` to ensure that endpoints behave as expected. Run the tests from within the Docker container as FastAPI communicates with the Neo4j service via its own network inside the container.
+
+In the following example, the name of the container is `neo4j-python-fastapi-fastapi-1`, which is basically the `<root_directory>-<container_name>`.
+
+```
+docker exec -it neo4j-python-fastapi-fastapi-1 bash
+pytest -v
+```
+
+The first line runs an interactive bash shell inside the container, and the second runs the tests in verbose mode. Once the data has been ingested into the database, the tests should pass and return something like this.
+
+```
+======================== test session starts ========================
+platform linux -- Python 3.11.3, pytest-7.3.1, pluggy-1.0.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /wine
+plugins: asyncio-0.21.0, anyio-3.6.2
+asyncio: mode=Mode.STRICT
+collected 7 items                                                   
+
+src/api/test_main.py::test_search PASSED                      [ 14%]
+src/api/test_main.py::test_top_by_country PASSED              [ 28%]
+src/api/test_main.py::test_top_by_province PASSED             [ 42%]
+src/api/test_main.py::test_most_by_variety PASSED             [ 57%]
+src/tests/test_crud.py::test_sync_transactions PASSED         [ 71%]
+src/tests/test_crud.py::test_async_transactions PASSED        [ 85%]
+src/tests/test_schemas.py::test_wine_schema PASSED            [100%]
+
+========================= 7 passed in 0.45s =========================
+```
