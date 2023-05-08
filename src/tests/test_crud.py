@@ -2,7 +2,7 @@ import pytest
 import pytest_asyncio
 from neo4j import AsyncGraphDatabase, GraphDatabase
 
-from config import settings
+from src.config import settings
 
 
 @pytest.fixture(scope="session")
@@ -16,7 +16,7 @@ def config():
 # Test a sync Neo4j database connection
 @pytest.fixture(scope="session")
 def sync_connection(config):
-    URI = f"bolt://{config.neo4j_url}:7687"
+    URI = f"bolt://{config.neo4j_service}:7687"
     AUTH = (config.neo4j_user, config.neo4j_password)
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
         with driver.session(database="neo4j") as session:
@@ -26,7 +26,7 @@ def sync_connection(config):
 # Test an async Neo4j database connection
 @pytest_asyncio.fixture
 async def async_connection(config):
-    URI = f"bolt://{config.neo4j_url}:7687"
+    URI = f"bolt://{config.neo4j_service}:7687"
     AUTH = (config.neo4j_user, config.neo4j_password)
     async with AsyncGraphDatabase.driver(URI, auth=AUTH) as driver:
         async with driver.session(database="neo4j") as session:
