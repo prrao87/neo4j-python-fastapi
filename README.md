@@ -10,7 +10,7 @@ The aim of this repo is to showcase how to build and maintain a data engineering
 2. Building a RESTful API on top of the Neo4j graph via [FastAPI](https://fastapi.tiangolo.com/)
 3. Building a GraphQL API on top of the Neo4j graph via FastAPI and [Strawberry](https://strawberry.rocks/)
 
-There are a lot of clever ways one can write an API on top of Neo4j using Python, but the main focus of this repo is to keep code readable, the logic simple and easy enough to extend for future use cases as they arise.
+There are lots of clever ways one can write an API on top of Neo4j, but the main focus of this repo is to keep code readable, and the logic simple and easy enough to extend for future use cases as they arise.
 
 A series of blog posts will also be published, going through the concepts involved. Stay tuned!
 
@@ -35,7 +35,7 @@ python -m pip install -r requirements.txt
 ### Install and run Docker
 
 * [Download Docker](https://docs.docker.com/get-docker/) and run the Docker daemon
-* Use the provided `docker-compose.yml` to install and run the database in a container
+* Use the provided `docker-compose.yml` to set up and run the database in a container
   * This ensures reproducibility and ease of setup, regardless of the platform used.
 * Copy the file `.env.example` and rename it to `.env`.
 * Fill in the `NEO4J_PASSWORD` field in `.env` to a non-null value -- this will be the password used to log into the Neo4j database running on `localhost`.
@@ -48,7 +48,7 @@ docker compose up -d
 
 This command starts a persistent-volume Neo4j database so that any data that's ingested persists on the local system even after Docker is shut down.
 
-Tear down the database process and containers at any time using the following command.
+Tear down the database process and containers at any time using the following command:
 
 ```
 docker compose down
@@ -61,16 +61,18 @@ The [wine reviews dataset](./data/) provided in this repo is a newline-delimited
 
 ## Run tests
 
-Once the data is intested into Neo4j, the APIs and schemas can be tested via `pytest` to ensure that endpoints behave as expected. Run the tests from within the Docker container as FastAPI communicates with the Neo4j service via its own network inside the container.
+Once the data is ingested into Neo4j, the APIs and schemas can be tested via `pytest` to ensure that endpoints behave as expected. 
 
-In the following example, the name of the container is `neo4j-python-fastapi-fastapi-1`, which is basically the `<root_directory>-<container_name>`.
+> 💡 **Note:** Run the tests **inside the Docker container** as FastAPI communicates with the Neo4j service via its own network inside the container.
+
+To enter the Docker container, in the following example, the name of the running container obtained via `docker ps` is `neo4j-python-fastapi-fastapi-1`.
 
 ```
 docker exec -it neo4j-python-fastapi-fastapi-1 bash
 pytest -v
 ```
 
-The first line runs an interactive bash shell inside the container, and the second runs the tests in verbose mode. Once the data has been ingested into the database, the tests should pass and return something like this.
+The first line runs an interactive bash shell inside the container, and the second runs the tests in verbose mode. Assuming that the data has been ingested into the database, the tests should pass and return something like this.
 
 ```
 ======================== test session starts ========================
