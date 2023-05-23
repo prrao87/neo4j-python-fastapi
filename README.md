@@ -1,18 +1,20 @@
-# Neo4j: Python and FastAPI starter code
+# Neo4j for Pythonistas
 
-This repo provides code to build a Neo4j graph via its [officially maintained Python client](https://github.com/neo4j/neo4j-python-driver), using either the sync or async database drivers. The async driver offers support for using Python's `asyncio` coroutine-based asynchronous, concurrent workflows, which can be beneficial in certain scenarios. Both sync and async code is provided in `src/ingest` as a starter template to bulk-ingest large amounts of data into Neo4j in batches, so as to be as efficient as possible.
+This repo contains code for the methods described in this series of blog posts:
+
+1. [Neo4j for Pythonistas: Part 1](https://thedataquarry.com/posts/neo4j-python-1/)
+   * Using Pydantic and async Python to build a graph in Neo4j
 
 ## Goals
 
-The aim of this repo is to showcase how to build and maintain a data engineering workflow using Python, Pydantic and FastAPI. Code will be added in three parts.
+The aim of this code is to build a Neo4j graph via its [officially maintained Python client](https://github.com/neo4j/neo4j-python-driver), using either the sync or async database drivers. The async driver offers support for using Python's `asyncio` coroutine-based asynchronous, concurrent workflows, which can be beneficial in certain scenarios. Both sync and async code is provided in `src/ingest` as a starter template to bulk-ingest large amounts of data into Neo4j in batches, so as to be as efficient as possible. Code will be added in three parts:
 
-1. Bulk data ingestion into Neo4j
+
+1. Bulk data ingestion into Neo4j using Pydantic and async Python
 2. Building a RESTful API on top of the Neo4j graph via [FastAPI](https://fastapi.tiangolo.com/)
 3. Building a GraphQL API on top of the Neo4j graph via FastAPI and [Strawberry](https://strawberry.rocks/)
 
 There are lots of clever ways one can write an API on top of Neo4j, but the main focus of this repo is to keep code readable, and the logic simple and easy enough to extend for future use cases as they arise.
-
-A series of blog posts will also be published, going through the concepts involved. Stay tuned!
 
 
 ## Requirements
