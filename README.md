@@ -4,6 +4,8 @@ This repo contains code for the methods described in this series of blog posts:
 
 1. [Neo4j for Pythonistas: Part 1](https://thedataquarry.com/posts/neo4j-python-1/)
    * Using Pydantic and async Python to build a graph in Neo4j
+2. [Neo4j for Pythonistas: Part 2](https://thedataquarry.com/posts/neo4j-python-2/)
+   * Build a RESTful API on top of a Neo4j graph
 
 ## Goals
 
