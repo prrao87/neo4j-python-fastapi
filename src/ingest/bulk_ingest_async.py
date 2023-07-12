@@ -10,7 +10,6 @@ import srsly
 from codetiming import Timer
 from dotenv import load_dotenv
 from neo4j import AsyncGraphDatabase, AsyncManagedTransaction, AsyncSession
-from pydantic.main import ModelMetaclass
 
 sys.path.insert(1, os.path.realpath(Path(__file__).resolve().parents[1]))
 from config.settings import Settings
@@ -48,7 +47,7 @@ def get_json_data(data_dir: Path, filename: str) -> list[JsonBlob]:
     if not file_path.is_file():
         # File may not have been uncompressed yet so try to do that first
         data = srsly.read_gzip_jsonl(file_path)
-        # This time if it isn't there it really doesn't exist
+        # Thi.dicts time if it isn't there it really doesn't exist
         if not file_path.is_file():
             raise FileNotFoundError(f"No valid .jsonl file found in `{data_dir}`")
     else:
@@ -59,10 +58,9 @@ def get_json_data(data_dir: Path, filename: str) -> list[JsonBlob]:
 @Timer(name="pydantic validator")
 def validate(
     data: list[JsonBlob],
-    model: ModelMetaclass,
     exclude_none: bool = False,
 ) -> list[JsonBlob]:
-    validated_data = [model(**item).dict(exclude_none=exclude_none) for item in data]
+    validated_data = [Wine(**item).model_dump(exclude_none=exclude_none) for item in data]
     return validated_data
 
 
@@ -124,7 +122,7 @@ async def main(data: list[JsonBlob]) -> None:
             await create_indexes_and_constraints(session)
             # Ingest the data into Neo4j
             print("Validating data...")
-            validated_data = validate(data, Wine, exclude_none=True)
+            validated_data = validate(data, exclude_none=True)
             # Break the data into chunks
             chunked_data = chunk_iterable(validated_data, CHUNKSIZE)
             print("Ingesting data...")

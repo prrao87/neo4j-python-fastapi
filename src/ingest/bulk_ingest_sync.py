@@ -9,7 +9,6 @@ import srsly
 from codetiming import Timer
 from dotenv import load_dotenv
 from neo4j import GraphDatabase, ManagedTransaction, Session
-from pydantic.main import ModelMetaclass
 
 sys.path.insert(1, os.path.realpath(Path(__file__).resolve().parents[1]))
 from config.settings import Settings
@@ -56,10 +55,9 @@ def get_json_data(data_dir: Path, filename: str) -> list[JsonBlob]:
 @Timer(name="pydantic validator")
 def validate(
     data: list[JsonBlob],
-    model: ModelMetaclass,
     exclude_none: bool = False,
 ) -> list[JsonBlob]:
-    validated_data = [model(**item).dict(exclude_none=exclude_none) for item in data]
+    validated_data = [Wine(**item).model_dump(exclude_none=exclude_none) for item in data]
     return validated_data
 
 
@@ -128,7 +126,7 @@ def main(data: list[JsonBlob]) -> None:
             create_indexes_and_constraints(session)
             # Ingest the data into Neo4j
             print("Validating data...")
-            validated_data = validate(data, Wine, exclude_none=True)
+            validated_data = validate(data, exclude_none=True)
             # Break the data into chunks
             chunked_data = chunk_iterable(validated_data, CHUNKSIZE)
             print("Ingesting data...")
