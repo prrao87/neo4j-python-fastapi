@@ -1,10 +1,11 @@
 codetiming>=1.4.0
-neo4j>=5.8.0
-pydantic[dotenv]>=1.10.7, <2.0.0
+neo4j~=5.10.0
+pydantic[dotenv]~=2.0.0
+pydantic-settings~=2.0.0
 srsly>=2.4.6
-uvloop~=0.17.0
-fastapi~=0.95.0
-httpx~=0.24.0
-uvicorn~=0.21.1
+uvloop>=0.17.0
+fastapi~=0.100.0
+httpx>=0.24.0
+uvicorn>=0.22.0
 pytest>=7.3.1
 pytest-asyncio>=0.21.0
