@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from neo4j import AsyncGraphDatabase
 
 from src.config import settings
-from src.api.routers import rest
+from src.api.routers import query
 
 
 @lru_cache()
@@ -48,4 +48,4 @@ async def root():
 
 
 # Attach routes
-app.include_router(rest.router, prefix="/v1/rest", tags=["rest"])
+app.include_router(query.router, prefix="/v1/query", tags=["query"])

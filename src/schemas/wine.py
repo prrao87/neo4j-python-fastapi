@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class Wine(BaseModel):
@@ -17,7 +17,7 @@ class Wine(BaseModel):
     taster_name: str | None
     taster_twitter_handle: str | None
 
-    @validator("country", pre=True)
+    @field_validator("country")
     def validate_country(cls, value: str | None) -> str:
         if value is None:
             return "Unknown"
