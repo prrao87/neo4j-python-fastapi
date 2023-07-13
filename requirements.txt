@@ -1,5 +1,5 @@
 codetiming>=1.4.0
-neo4j~=5.10.0
+neo4j~=5.8.0
 pydantic[dotenv]~=2.0.0
 pydantic-settings~=2.0.0
 srsly>=2.4.6

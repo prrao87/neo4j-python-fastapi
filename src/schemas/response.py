@@ -12,7 +12,7 @@ class FullTextSearch(BaseModel):
     winery: str | None
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "wineID": 3845,
                 "country": "Italy",
